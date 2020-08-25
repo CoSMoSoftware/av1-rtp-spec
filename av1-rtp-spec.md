@@ -154,6 +154,7 @@ The structure is as follows.
 </code></pre>
 
 Z: MUST be set to 1 if the first OBU element is an OBU fragment that is a continuation of an OBU fragment from the previous packet, and MUST be set to 0 otherwise.
+{:& webrtc/VideoRtpDepacketizerAv1Test/ParseTreatsContinuationFlagAsNotBeginningOfFrame }
 
 Y: MUST be set to 1 if the last OBU element is an OBU fragment that will continue in the next packet, and MUST be set to 0 otherwise.
 
