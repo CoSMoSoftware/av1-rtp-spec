@@ -159,6 +159,7 @@ Z: MUST be set to 1 if the first OBU element is an OBU fragment that is a contin
 Y: MUST be set to 1 if the last OBU element is an OBU fragment that will continue in the next packet, and MUST be set to 0 otherwise.
 
 W: two bit field that describes the number of OBU elements in the packet. This field MUST be set equal to 0 or equal to the number of OBU elements contained in the packet. If set to 0, each OBU element MUST be preceded by a length field. If not set to 0 (i.e., W = 1, 2 or 3) the last OBU element MUST NOT be preceded by a length field. Instead, the length of the last OBU element contained in the packet can be calculated as follows:
+{:& modules/rtc_rtcp/source/rtp_packetizer_av1_unittest/UseSizeForAllObusWhenFourObusFitsIntoThePacket }
 
 <pre><code>
 Length of the last OBU element = 
@@ -166,8 +167,10 @@ Length of the last OBU element =
  - length of aggregation header
  - length of previous OBU elements including length fields
 </code></pre>
+{:& modules/rtc_rtcp/source/rtp_packetizer_av1_unittest/OmitsSizeForLastObuWhenThreeObusFitsIntoThePacket }
 
 N: MUST be set to 1 if the packet is the first packet of a coded video sequence, and MUST be set to 0 otherwise.
+{:& modules/rtc_rtcp/source/rtp_packetizer_av1_unittest/SetsNbitAtTheFirstPacketOfAKeyFrameWithSequenceHeader modules/rtc_rtcp/source/rtp_packetizer_av1_unittest/DoesntSetNbitAtThePacketsOfAKeyFrameWithoutSequenceHeader modules/rtc_rtcp/source/rtp_packetizer_av1_unittest/DoesntSetNbitAtThePacketsOfADeltaFrame }
 
 **Note:** if N equals 1 then Z must equal 0.
 {:.alert .alert-info }
@@ -184,6 +187,7 @@ The length field is encoded using leb128. Leb128 is defined in the AV1 specifica
 Whether or not the first and/or last OBU element is a fragment of an OBU is signaled in the aggregation header. Fragmentation may occur regardless of how the W field is set.
 
 The AV1 specification allows OBUs to have an optional size field called obu_size (also leb128 encoded), signaled by the obu_has_size_field flag in the OBU header. To minimize overhead, the obu_has_size_field flag SHOULD be set to zero in all OBUs.
+{:& modules/rtc_rtcp/source/rtp_packetizer_av1_unittest/PacketizeOneObuWithoutSizeAndExtension modules/rtc_rtcp/source/rtp_packetizer_av1_unittest/PacketizeOneObuWithoutSizeWithExtension modules/rtc_rtcp/source/rtp_packetizer_av1_unittest/RemovesObuSizeFieldWithoutExtension modules/rtc_rtcp/source/rtp_packetizer_av1_unittest/RemovesObuSizeFieldWithExtension }
 
 The following figure shows an example payload where the length field is shown as taking two bytes for the first and second OBU elements and one byte for the last (N) OBU element.
 
@@ -253,6 +257,7 @@ OBU element 2 data        = 303 - 1 - (2 + 200) = 100 bytes
 Each RTP packet MUST NOT contain OBUs that belong to different temporal units.
 
 The temporal delimiter OBU, if present, SHOULD be removed when transmitting, and MUST be ignored by receivers. Tile list OBUs are not supported. They SHOULD be removed when transmitted, and MUST be ignored by receivers.
+{:& modules/rtc_rtcp/source/rtp_packetizer_av1_unittest/DiscardsTemporalDelimiterAndTileListObu }
 
 If a sequence header OBU is present in an RTP packet and operating_points_cnt_minus_1 > 0 then for any number i where 0 <= i < operating_points_cnt_minus_1 the following MUST be true: (operating_point_idc[i] & operating_point_idc[i+1]) == operating_point_idc[i+1].
 
