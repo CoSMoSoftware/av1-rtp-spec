@@ -78,9 +78,11 @@ Spatial and quality layers define different and possibly dependent representatio
 This payload format specification provides for specific mechanisms through which such temporal and spatial scalability layers can be described and communicated.
 
 Temporal and spatial scalability layers are associated with non-negative integer IDs. The lowest layer of either type has an ID equal to 0.
+{:& webrtc/ScalabilityStructureTest/TemplatesAreSortedByLayerId }
 
 **Note:** Layer dependencies are constrained by the AV1 specification such that a temporal layer with temporal_id T and spatial layer with spatial_id S are only allowed to reference previously coded video data having temporal_id T' and spatial_id S', where T' <= T and S' <= S. 
 {:.alert .alert-info }
+{:& webrtc/ScalabilityStructureTest/FrameDependsOnSameOrLowerLayer }
 
 
 ## 4. Payload Format
@@ -698,6 +700,7 @@ Decode Target Indication (DTI)
 
 Discardable indication
 : An indication for a frame, associated with a given Decode target, that it will not be a Referred frame for any frame belonging to that Decode target.
+{:& webrtc/ScalabilityStructureTest/NoFrameDependsOnDiscardableOrNotPresent }
 
 **Note:** A frame belonging to more than one Decode target may be discardable for one Decode target and not for another.
 {:.alert .alert-info }
@@ -710,6 +713,7 @@ Frame dependency template
 
 Not present indication
 : An indication for a frame, that it is not associated with a given Decode target.
+{:& webrtc/ScalabilityStructureTest/NoFrameDependsOnDiscardableOrNotPresent }
 
 Referred frame
 : A frame on which the current frame depends.
