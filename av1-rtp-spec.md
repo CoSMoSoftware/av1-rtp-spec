@@ -78,7 +78,7 @@ Spatial and quality layers define different and possibly dependent representatio
 This payload format specification provides for specific mechanisms through which such temporal and spatial scalability layers can be described and communicated.
 
 Temporal and spatial scalability layers are associated with non-negative integer IDs. The lowest layer of either type has an ID equal to 0.
-{:& webrtc/ScalabilityStructureTest/TemplatesAreSortedByLayerId }
+{:& https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/video_coding/codecs/av1/scalability_structure_unittest.cc?q=TemplatesAreSortedByLayerId }
 
 **Note:** Layer dependencies are constrained by the AV1 specification such that a temporal layer with temporal_id T and spatial layer with spatial_id S are only allowed to reference previously coded video data having temporal_id T' and spatial_id S', where T' <= T and S' <= S. 
 {:.alert .alert-info }
@@ -1032,6 +1032,7 @@ The semantics pertaining to the Dependency Descriptor syntax section above is de
 {:.alert .alert-info }
 
 * **zero_padding**: MUST be set to 0 and be ignored by receivers.
+{:& webrtc/RtpDependencyDescriptorExtensionTest/WriteZeroInUnusedBits }
 
 **Extended Descriptor Fields**
 
@@ -1051,6 +1052,7 @@ The semantics pertaining to the Dependency Descriptor syntax section above is de
 **Template dependency structure**
 
 * **template_id_offset**: indicates the value of the frame_dependency_template_id having templateIndex=0. The value of template_id_offset SHOULD be chosen so that the valid frame_dependency_template_id range, template_id_offset to template_id_offset + TemplatesCnt - 1, inclusive, of a new template_dependency_structure, does not overlap the valid frame_dependency_template_id range for the existing template_dependency_structure. When template_id_offset of a new template_dependency_structure is the same as in the existing template_dependency_structure, all fields in both template_dependency_structures MUST have identical values.
+{&: webrtc/RtpSenderVideoTest/SetDiffentVideoStructureAvoidsCollisionWithThePreviousStructure }
 
 * **dtis_cnt_minus_one**: dtis_cnt_minus_one + 1 indicates the number of Decode targets present in the coded video sequence.
 
@@ -1126,6 +1128,7 @@ When not all Decode targets are active, the active_decode_targets_bitmask MUST b
 {:.alert .alert-info }
 
 Chains protecting no active decode targets MUST be ignored.
+{:& webrtc/RtpDependencyDescriptorExtensionTest/TemplateMatchingSkipsInactiveChains }
 
 **Note:** To increase the chance of using a predefined template, chains protecting no active decode targets may refer to any frame, including an RTP frame that was never produced.
 {:.alert .alert-info }
