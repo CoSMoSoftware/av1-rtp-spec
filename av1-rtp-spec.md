@@ -147,7 +147,7 @@ To facilitate the work of selectively forwarding portions of a scalable video bi
 ### 4.4 AV1 Aggregation Header
 
 The aggregation header is carried in the first byte of the RTP payload and is used to indicate if the first and/or last OBU element in the payload is a fragment of an OBU. The aggregation header is not part of the AV1 bitstream and MUST NOT be presented to an AV1 decoder.
-{: .needs-tests }
+{: https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/rtp_rtcp/source/video_rtp_depacketizer_av1_unittest.cc?q=AssembleFrameFromOnePacketWithOneObu }
 
 The structure is as follows.
 
@@ -798,7 +798,7 @@ Required indication
 
 Switch indication
 : An indication associated with a specific Decode target that all subsequent frames for that Decode target will be decodable if the frame containing the indication is decodable.
-{: .needs-tests }
+{:& https://source.chromium.org/chromium/chromium/src/+/master:third_party/webrtc/modules/video_coding/codecs/av1/scalability_structure_unittest.cc?q=NoFrameDependsThroughSwitchIndication }
 
 
 #### A.3 Media Stream Requirements
