@@ -135,7 +135,7 @@ The Dependency Descriptor and AV1 aggregation header are described in this docum
 ### 4.2 RTP Header Marker Bit (M)
 
 The RTP header Marker bit MUST be set equal to 0 if the packet is not the last packet of the temporal unit, it SHOULD be set equal to 1 otherwise.
-{: .needs-tests }
+{:& https://bugs.chromium.org/p/webrtc/issues/detail?id=12167 }
 
 **Note:** It is possible for a receiver to receive the last packet of a temporal unit without the marker bit being set equal to 1, and a receiver should be able to handle this case. The last packet of a temporal unit is also indicated by the next packet, in RTP sequence number order, having an incremented timestamp.
 {:.alert .alert-info }
@@ -324,13 +324,13 @@ The general function of a MANE or SFM is to selectively forward packets to recei
 ### 6.1 Simulcast
 
 The RTP payload defined in this specification supports two distinct modes for transport of simulcast encodings. In either mode, simulcast transport MUST only be used to convey multiple encodings from the same source. Also, in either mode, a sequence header OBU SHOULD be aggregated with each spatial layer. Both modes MUST be supported by implementations of this specification.
-{:& untestable }
+{: .needs-tests }
 
 When simulcast encodings are transported each on a separate RTP stream, each simulcast encoding utilizes a distinct bitstream containing its own distinct Sequence Header and Scalability Metadata OBUs. This mode utilizes distinct SSRCs and Restriction Identifiers (RIDs) for each encoding as described in [I-D.ietf-avtext-rid] and, as a result, RTCP feedback can be provided for each simulcast encoding. This mode of simulcast transport, which MUST be supported by SFMs, utilizes Session Description Protocol (SDP) signaling as described in [I-D.ietf-mmusic-sdp-simulcast] and [I-D.ietf-mmusic-rid].
-{:& untestable }
+{: .needs-tests }
 
 When simulcast encodings are transported on a single RTP stream, RIDs are not used and the Sequence Header and Scalability Metadata OBUs (utilizing an 'S' mode) convey information relating to all encodings. This simulcast transport mode is possible since AV1 enables multiple simulcast encodings to be provided within a single bitstream. However, in this mode, RTCP feedback cannot be provided for each simulcast encoding, but only for the aggregate, since only a single SSRC is used. This mode of simulcast transport MAY be supported by SFMs.
-{:& untestable }
+{: .needs-tests }
 
 
 ### 6.1.1 Example
@@ -349,10 +349,10 @@ This section specifies the parameters that MAY be used to select optional featur
 
 * Type name:
   * **video**
-  {: .needs-tests }
+  {:& https://github.com/medooze/media-server/blob/0f5832e6aa8bc4bdb98535897f312466d1c49a06/include/codecs.h#L107 }
 * Subtype name:
   * **AV1**
-  {: .needs-tests }
+  {:& https://github.com/medooze/media-server/blob/0f5832e6aa8bc4bdb98535897f312466d1c49a06/include/codecs.h#L107 }
 * Required parameters:
   * None.
   {:.no-test-needed }
@@ -401,16 +401,16 @@ The **tier** parameter is an integer indicating the highest tier that may have b
 The media type video/AV1 string is mapped to fields in the Session Description Protocol (SDP) per [RFC4566] as follows:
 
 * The media name in the "m=" line of SDP MUST be video.
-{: .needs-tests }
+{:& https://github.com/medooze/semantic-sdp-js/blob/master/lib/SDPInfo.js }
 * The encoding name in the "a=rtpmap" line of SDP MUST be AV1 (the media subtype).
-{: .needs-tests }
+{:& https://github.com/medooze/semantic-sdp-js/blob/master/lib/SDPInfo.js }
 * The clock rate in the "a=rtpmap" line MUST be 90000.
-{: .needs-tests }
+{:& https://github.com/medooze/semantic-sdp-js/blob/master/lib/SDPInfo.js }
 * The parameters "**profile**", "**level-idx**", and "**tier**" MAY be included in the "a=fmtp" line of SDP. These parameters are expressed as a media subtype string, in the form of a semicolon separated list of parameter=value pairs.
 {:& untestable }
 
 The receiver MUST ignore any fmtp parameter not specified in this document.
-{: .needs-tests }
+{:& https://github.com/medooze/semantic-sdp-js/blob/master/lib/SDPInfo.js }
 
 ### 7.2.2 RID Restrictions Mapping for AV1
 
